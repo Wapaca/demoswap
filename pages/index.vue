@@ -1,5 +1,5 @@
 <template>
-	<div class="waxelpage">
-		<Waxel />
+	<div class="managepage">
+		<Manage />
 	</div>
 </template>

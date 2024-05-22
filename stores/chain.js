@@ -14,17 +14,17 @@ export const useChainStore = defineStore('chain', {
   actions: {
   	async init() {
   		const ui = (process.client) ? new WebRenderer() : null;
-			const authStorageKey = 'waxel_ninjas_claim-auth';
+			const authStorageKey = 'totoromanage-auth';
 
 			this.sessionKit = new SessionKit({
-				appName: 'waxel_ninjas_claim',
+				appName: 'totoromanage',
 				chains: [{
-					id: '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4',
-			    url: 'https://wax.greymass.com',
+					id: 'f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12',
+			    url: 'https://waxtest.defibox.xyz',
 				}],
 				storage: new BrowserLocalStorage(authStorageKey),
 				ui,
-				walletPlugins: [new WalletPluginAnchor(), new WalletPluginCloudWallet()]
+				walletPlugins: [new WalletPluginAnchor()]
 			});
 
       const sessions = await this.sessionKit.restoreAll();

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<LayoutsDefaultHeader />
-		<div class="waxelclaim-content">
+		<div class="totoromanage-content">
 			<slot />
 		</div>
 	</div>

@@ -1,10 +1,9 @@
 <template>
 	<div class="waxelclaim-header">
-		<div class="header-logo">WAXEL CLAIM TOOL</div>
+		<div class="header-logo">DEMOSWAP MANAGE</div>
 		<div class="header-nav">
 			<ul>
-				<li><NuxtLink to="/">Claim tool</NuxtLink></li>
-				<li><NuxtLink to="/transfer">Transfer NFT</NuxtLink></li>
+				<li><NuxtLink to="/">Manage contract</NuxtLink></li>
 			</ul>
 		</div>
 		<ClientOnly>
