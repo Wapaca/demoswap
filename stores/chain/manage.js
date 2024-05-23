@@ -53,7 +53,18 @@ export const useChainManageStore = defineStore('chainManage', {
 				updateAction: () => manageStore.fetchPairs(),
 				updateDelay: 4000,
 			})
-  	}
+  	},
+  	async removeLiquidity(pair, lptoken_amount) {
+  		const chainStore = useChainStore();
+  		const manageStore = useManageStore();
+
+  		chainStore.transact({
+				actor: chainStore.getCurrentSession().actor.toString(),
+				actions: this.getRemoveLiquidityActions(pair, lptoken_amount),
+				updateAction: () => manageStore.fetchPairs(),
+				updateDelay: 4000,
+			})
+  	},
   },
   getters: {
   	getConfigActions: () => (config) => {
@@ -133,6 +144,21 @@ export const useChainManageStore = defineStore('chainManage', {
   			data: {
   				owner: chainStore.getCurrentSession().actor.toString(),
   				pair_id: String(pair.id)
+  			}
+  		}]
+  	},
+  	getRemoveLiquidityActions: () => (pair, lptoken_amount) => {
+  		const chainStore = useChainStore();
+
+  		return[{
+  			account: app_config.lptoken_contract,
+  			name: 'transfer',
+  			authorization: [chainStore.getCurrentSession().permissionLevel],
+  			data: {
+  				from: chainStore.getCurrentSession().actor.toString(),
+  				to: app_config.swap_contract,
+  				quantity: precise(Number(lptoken_amount), 0)+' '+pair.code,
+  				memo: ''
   			}
   		}]
   	}

@@ -1,3 +1,4 @@
 export default {
-	swap_contract: 'demoswapswap'
+	swap_contract: 'demoswapswap',
+	lptoken_contract: 'demoswaplptk'
 }

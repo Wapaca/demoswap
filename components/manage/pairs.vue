@@ -11,7 +11,8 @@
 				<div>Updated: {{ pair.updated_time }}</div>
 				<div class="actions">
 					<button @click="updateLiquidityPair('add', pair.id)">Add liquidity</button>
-					<button @click="updateLiquidityPair('remove', pair.id)">Remove liquidity</button>
+					<button v-if="pair.total_liquidity <= 0" disabled class="disabled">Remove liquidity</button>
+					<button v-else @click="updateLiquidityPair('remove', pair.id)">Remove liquidity</button>
 					<button @click="chainManageStore.deletePair(pair.id)">Delete pair</button>
 				</div>
 			</div>
@@ -21,14 +22,17 @@
 </template>
 <script setup>
 import { useManageStore } from '@/stores/manage'
+import { useBalancesStore } from '~/stores/balances.js';
 import { useChainManageStore } from '@/stores/chain/manage'
 import { useModalStore } from '~/stores/modal.js';
 
 const manageStore = useManageStore()
+const balancesStore = useBalancesStore();
 const chainManageStore = useChainManageStore()
 const modalStore = useModalStore();
 
-function updateLiquidityPair(operation, pair_id) {
+async function updateLiquidityPair(operation, pair_id) {
+	await balancesStore.getBalances()
 	manageStore.selectLiquidityPair(operation, pair_id)
 	modalStore.open('liquidity')
 }

@@ -18,6 +18,10 @@ export const useBalancesStore = defineStore('balances', {
   	getBalance: () => (i) => {
   		const thisStore = useBalancesStore()
   		return thisStore.balances[i]
+  	},
+  	findBalance: () => (contract, ticker) => {
+  		const thisStore = useBalancesStore()
+  		return thisStore.balances.find(b => b.contract === contract && b.currency === ticker)
   	}
   }
 })
