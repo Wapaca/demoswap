@@ -29,6 +29,8 @@
 				</div>
 			</form>
 		</div>
+		<ManageCreate />
+		<ManagePairs />
 	</div>
 </template>
 <script setup>

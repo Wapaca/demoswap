@@ -6,7 +6,8 @@ import config from '~/config.js';
 
 export const useManageStore = defineStore('manage', {
   state: () => ({
-    config: {}
+    config: {},
+    pairs: []
   }),
   actions: {
   	async fetchConfig() {
@@ -14,6 +15,10 @@ export const useManageStore = defineStore('manage', {
   		for(const config of configs)
         this.config[config.key] = config.value
   	},
+    async fetchPairs() {
+      const pairs = await fetchTable(config.swap_contract, config.swap_contract, 'pairs')
+      console.log(pairs)
+    },
   	async updateConfig(event) {
   		const config = {}
   		for(const input of event.target) {
@@ -29,7 +34,7 @@ export const useManageStore = defineStore('manage', {
 
   		const chainManageStore = useChainManageStore()
   		await chainManageStore.updateConfig(config)
-  	}
+  	},
   },
   getters: {
 
