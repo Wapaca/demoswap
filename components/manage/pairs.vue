@@ -10,8 +10,8 @@
 				<div>Created: {{ pair.created_time }}</div>
 				<div>Updated: {{ pair.updated_time }}</div>
 				<div class="actions">
-					<button>Add liquidity</button>
-					<button>Remove liquidity</button>
+					<button @click="updateLiquidityPair('add', pair.id)">Add liquidity</button>
+					<button @click="updateLiquidityPair('remove', pair.id)">Remove liquidity</button>
 					<button @click="chainManageStore.deletePair(pair.id)">Delete pair</button>
 				</div>
 			</div>
@@ -22,9 +22,16 @@
 <script setup>
 import { useManageStore } from '@/stores/manage'
 import { useChainManageStore } from '@/stores/chain/manage'
+import { useModalStore } from '~/stores/modal.js';
 
 const manageStore = useManageStore()
 const chainManageStore = useChainManageStore()
+const modalStore = useModalStore();
+
+function updateLiquidityPair(operation, pair_id) {
+	manageStore.selectLiquidityPair(operation, pair_id)
+	modalStore.open('liquidity')
+}
 
 onMounted(async () => {
   await manageStore.fetchPairs()

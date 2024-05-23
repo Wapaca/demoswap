@@ -7,7 +7,9 @@ import config from '~/config.js';
 export const useManageStore = defineStore('manage', {
   state: () => ({
     config: {},
-    pairs: []
+    pairs: [],
+    selected_operation: null,
+    selected_pair: null,
   }),
   actions: {
   	async fetchConfig() {
@@ -35,8 +37,15 @@ export const useManageStore = defineStore('manage', {
   		const chainManageStore = useChainManageStore()
   		await chainManageStore.updateConfig(config)
   	},
+    selectLiquidityPair(operation, pair_id) {
+      this.selected_operation = operation
+      this.selected_pair = pair_id
+    }
   },
   getters: {
-
+    getSelectedPair: () => () => {
+      const thisStore = useManageStore();
+      return thisStore.pairs.find(p => p.id === thisStore.selected_pair)
+    }
   }
 })
