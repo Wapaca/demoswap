@@ -6,7 +6,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   devServer: { host: '0.0.0.0' },
 
-  modules: [
-    '@pinia/nuxt',
-  ],
+  modules: ['@pinia/nuxt', "@nuxt/ui"],
+  ui: {
+    primary: 'green',
+    gray: 'cool'
+  }
 })
