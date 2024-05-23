@@ -1,0 +1,9 @@
+.manage {
+	.manage-pairs {
+		.pairs-list {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: $margin-small;
+		}
+	}
+}

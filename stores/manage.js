@@ -17,7 +17,7 @@ export const useManageStore = defineStore('manage', {
   	},
     async fetchPairs() {
       const pairs = await fetchTable(config.swap_contract, config.swap_contract, 'pairs')
-      console.log(pairs)
+      this.pairs = pairs
     },
   	async updateConfig(event) {
   		const config = {}
