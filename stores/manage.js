@@ -37,15 +37,15 @@ export const useManageStore = defineStore('manage', {
   		const chainManageStore = useChainManageStore()
   		await chainManageStore.updateConfig(config)
   	},
-    selectLiquidityPair(operation, pair_id) {
+    selectLiquidityPair(operation, pair_code) {
       this.selected_operation = operation
-      this.selected_pair = pair_id
+      this.selected_pair = pair_code
     }
   },
   getters: {
     getSelectedPair: () => () => {
       const thisStore = useManageStore();
-      return thisStore.pairs.find(p => p.id === thisStore.selected_pair)
+      return thisStore.pairs.find(p => p.code === thisStore.selected_pair)
     }
   }
 })

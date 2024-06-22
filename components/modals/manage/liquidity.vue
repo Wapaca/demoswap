@@ -3,11 +3,11 @@
   <UModal v-model="modal_open">
     <h3>{{ (manageStore.selected_operation === 'add' ? 'Add' : 'Remove') }} liquidity</h3>
     <div v-if="manageStore.selected_operation === 'add'">
-      <label>{{ manageStore.getSelectedPair().token0.sym.name }} amount: </label>
+      <label>{{ manageStore.getSelectedPair().reserve0.quantity.symbol.name }} amount: </label>
       <input type="number" v-model="token0_amount"/>
     </div>
     <div v-if="manageStore.selected_operation === 'add'">
-      <label>{{ manageStore.getSelectedPair().token1.sym.name }} amount: </label>
+      <label>{{ manageStore.getSelectedPair().reserve1.quantity.symbol.name }} amount: </label>
       <input type="number" v-model="token1_amount"/>
     </div>
     <div v-if="manageStore.selected_operation === 'remove'">

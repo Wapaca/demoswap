@@ -1,4 +1,4 @@
 export default {
-	swap_contract: 'demoswapswap',
-	lptoken_contract: 'demoswaplptk'
+	swap_contract: 'amms.nefty',
+	lptoken_contract: 'lp.nefty'
 }

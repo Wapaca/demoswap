@@ -115,27 +115,28 @@ export const useChainManageStore = defineStore('chainManage', {
   		}]
   	},
   	getAddLiquidityActions: () => (pair, token0_amount, token1_amount) => {
+  		console.log(pair, token0_amount, token1_amount)
   		const chainStore = useChainStore();
 
   		return [{
-  			account: pair.token0.contract,
+  			account: pair.reserve0.contract,
   			name: 'transfer',
   			authorization: [chainStore.getCurrentSession().permissionLevel],
   			data: {
   				from: chainStore.getCurrentSession().actor.toString(),
   				to: app_config.swap_contract,
-  				quantity: precise(Number(token0_amount), pair.token0.sym.precision)+' '+pair.token0.sym.name,
-  				memo: 'deposit:'+pair.id
+  				quantity: precise(Number(token0_amount), pair.reserve0.quantity.symbol.precision)+' '+pair.reserve0.quantity.symbol.name,
+  				memo: 'deposit:'+pair.code
   			}
   		},{
-  			account: pair.token1.contract,
+  			account: pair.reserve1.contract,
   			name: 'transfer',
   			authorization: [chainStore.getCurrentSession().permissionLevel],
   			data: {
   				from: chainStore.getCurrentSession().actor.toString(),
   				to: app_config.swap_contract,
-  				quantity: precise(Number(token1_amount), pair.token1.sym.precision)+' '+pair.token1.sym.name,
-  				memo: 'deposit:'+pair.id
+  				quantity: precise(Number(token1_amount), pair.reserve1.quantity.symbol.precision)+' '+pair.reserve1.quantity.symbol.name,
+  				memo: 'deposit:'+pair.code
   			}
   		},{
   			account: app_config.swap_contract,
@@ -143,7 +144,14 @@ export const useChainManageStore = defineStore('chainManage', {
   			authorization: [chainStore.getCurrentSession().permissionLevel],
   			data: {
   				owner: chainStore.getCurrentSession().actor.toString(),
-  				pair_id: String(pair.id)
+  				token0: {
+  					sym: pair.reserve0.quantity.symbol.precision+","+pair.reserve0.quantity.symbol.name,
+  					contract: pair.reserve0.contract
+  				},
+  				token1: {
+  					sym: pair.reserve1.quantity.symbol.precision+","+pair.reserve1.quantity.symbol.name,
+  					contract: pair.reserve1.contract
+  				},
   			}
   		}]
   	},
