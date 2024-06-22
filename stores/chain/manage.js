@@ -32,13 +32,13 @@ export const useChainManageStore = defineStore('chainManage', {
 				updateDelay: 4000,
 			})
   	},
-  	async deletePair(pair_id) {
+  	async deletePair(pair_code) {
   		const chainStore = useChainStore();
   		const manageStore = useManageStore();
 
   		chainStore.transact({
 				actor: chainStore.getCurrentSession().actor.toString(),
-				actions: this.getDeletePairActions(pair_id),
+				actions: this.getDeletePairActions(pair_code),
 				updateAction: () => manageStore.fetchPairs(),
 				updateDelay: 4000,
 			})
@@ -102,7 +102,7 @@ export const useChainManageStore = defineStore('chainManage', {
   			}
   		}]
   	},
-  	getDeletePairActions: () => (pair_id) => {
+  	getDeletePairActions: () => (pair_code) => {
   		const chainStore = useChainStore();
 
   		return [{
@@ -110,7 +110,7 @@ export const useChainManageStore = defineStore('chainManage', {
   			name: 'removepair',
   			authorization: [chainStore.getCurrentSession().permissionLevel],
   			data: {
-  				pair_id: pair_id
+  				code: pair_code
   			}
   		}]
   	},
